@@ -1,110 +1,110 @@
 //TRAVELER CODE
 class Traveler {
     constructor(name) {
-      this.name = name;
-      this.food = 1;
-      this.isHealthy = true;
+        this.name = name;
+        this.food = 1;
+        this.isHealthy = true;
     }
-  
+
     hunt() {
-      this.food += 2;
+        this.food += 2;
     }
-  
+
     eat() {
-      if (this.food <= 0) {
-        this.isHealthy = false;
-        console.log(this.name + " is now sick!");
-      } else {
-        this.food -= 1;
-      }
+        if (this.food <= 0) {
+            this.isHealthy = false;
+            console.log(this.name + " is now sick!");
+        } else {
+            this.food -= 1;
+        }
     }
-  }
+}
 
 //DOCTOR CODE
 class Doctor extends Traveler {
     constructor(name) {
-      super(name);
+        super(name);
     }
-  
+
     heal(traveler) {
-      if (traveler.isHealthy === false) {
-        traveler.isHealthy = true;
-        console.log("The doctor healed " + traveler.name)
-      }
+        if (traveler.isHealthy === false) {
+            traveler.isHealthy = true;
+            console.log("The doctor healed " + traveler.name)
+        }
     }
-  }
-  
+}
+
 //HUNTER CODE
 class Hunter extends Traveler {
     constructor(name) {
-      super(name);
-      this.food = 2;
+        super(name);
+        this.food = 2;
     }
-  
+
     hunt() {
-      this.food += 5;
+        this.food += 5;
     }
-   
+
     eat() {
-      if (this.food < 2) {
-          //hunter eats whatever is left of their food
-          this.food = 0;
-          // then becomes sick
-          this.isHealthy = false;
-          console.log(this.name + " is now sick!");
-      } else {
-        this.food -= 2;
-      }
-    }  
-  
-    giveFood(traveler, numOfFoodUnits) {
-      if (this.food >= numOfFoodUnits) {
-          //reduces hunter's food count
-          this.food -= numOfFoodUnits;
-          //increases traveler's food count
-          traveler.food += numOfFoodUnits;
-      }
+        if (this.food < 2) {
+            //hunter eats whatever is left of their food
+            this.food = 0;
+            // then becomes sick
+            this.isHealthy = false;
+            console.log(this.name + " is now sick!");
+        } else {
+            this.food -= 2;
+        }
     }
-  }
+
+    giveFood(traveler, numOfFoodUnits) {
+        if (this.food >= numOfFoodUnits) {
+            //reduces hunter's food count
+            this.food -= numOfFoodUnits;
+            //increases traveler's food count
+            traveler.food += numOfFoodUnits;
+        }
+    }
+}
 
 //WAGON CODE
 class Wagon {
-    constructor(capacity){
-      this.capacity = capacity;
-      this.passengerList = [];
+    constructor(capacity) {
+        this.capacity = capacity;
+        this.passengerList = [];
     }
-  
+
     getAvailableSeatCount() {
-      return this.capacity - this.passengerList.length;
+        return this.capacity - this.passengerList.length;
     }
-  
+
     join(traveler) {
-      if (this.passengerList.length < this.capacity) {
-          this.passengerList.push(traveler);
-      } else {
-          console.log("The wagon is full. Sorry, " + traveler.name + ", there isn't room for you.");
-      }
+        if (this.passengerList.length < this.capacity) {
+            this.passengerList.push(traveler);
+        } else {
+            console.log("The wagon is full. Sorry, " + traveler.name + ", there isn't room for you.");
+        }
     }
-  
+
     shouldQuarantine() {
         for (let i = 0; i < this.passengerList.length; i++) {
-          if (this.passengerList[i].isHealthy !== true) {
-              //A passenger was sick so return that the wagon is quarantined (true)
-              return true;
-          }        
-      }   
-      //No passengers were sick so return that the wagon is NOT quarantined (false)
-      return false;
+            if (this.passengerList[i].isHealthy !== true) {
+                //A passenger was sick so return that the wagon is quarantined (true)
+                return true;
+            }
+        }
+        //No passengers were sick so return that the wagon is NOT quarantined (false)
+        return false;
     }
-  
-    totalFood () {
-      let totalFood = 0;
-      for (let i = 0; i < this.passengerList.length; i++) {
-          totalFood += this.passengerList[i].food
-      }
-      return totalFood;
+
+    totalFood() {
+        let totalFood = 0;
+        for (let i = 0; i < this.passengerList.length; i++) {
+            totalFood += this.passengerList[i].food
+        }
+        return totalFood;
     }
-  }
+}
 
 
 //GAME CODE *do not modify*
